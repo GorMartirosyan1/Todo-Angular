@@ -1,0 +1,32 @@
+<div class="container-sm border border-secondary-subtle mt-4 p-3">
+
+  <div class="input-group mb-3">
+    <input #inputElement type="text" class="form-control" placeholder="Add Todo" aria-label="Recipient's username"
+           aria-describedby="button-addon2">
+    <button (click)="onAdd(inputElement.value)" class="btn btn-outline-secondary" type="button" id="button-addon2">Add
+    </button>
+  </div>
+  <hr>
+  <h5>Todo items</h5>
+  <ul class="list-group">
+    <li *ngFor="let todo of todos" class="list-group-item d-flex justify-content-between">
+      <div>
+        <input class="form-check-input me-2" type="checkbox" value="">
+        <input class="form-check-label"
+               #todoTitleInput
+               [ngClass]="{'todo-title--readonly' : !todo.isEditing}"
+               [readonly]="!todo.isEditing"
+               [value]="todo.title"/>
+      </div>
+      <div *ngIf="!todo.isEditing" class="action-container">
+        <i class="bi bi-pencil me-2" (click)="onEdit(todo)"></i>
+        <i class="bi bi-trash" (click)="onDelete(todo.id)"></i>
+      </div>
+
+      <div *ngIf="todo.isEditing " class="action-container">
+        <i class="bi bi-x-circle-fill me-2"  (click)="onCancel(todo)"></i>
+        <i class="bi bi-check-circle-fill" (click)="onSave(todo, todoTitleInput.value)" ></i>
+      </div>
+    </li>
+  </ul>
+</div>
